@@ -167,6 +167,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
         const canvas = scene.canvas.canvas;
         const input = scene.input;
         let mouseHovering = false;
+        let mouseHoverEntity = false;
         const pointerWorldPos = math.vec3();
         const pointerCanvasPos = math.vec2();
         let pointerDownCanvasX;
@@ -180,6 +181,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                 ? "hoverSnapOrSurface"
                 : "hoverSurface", event => {
                 mouseHovering = true;
+                mouseHoverEntity = event.entity;
                 pointerWorldPos.set(event.worldPos);
                 pointerCanvasPos.set(event.canvasPos);
                 if (this._mouseState === MOUSE_FIRST_CLICK_EXPECTED) {
@@ -217,6 +219,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                     this._currentDistanceMeasurement.yAxisVisible = this._currentDistanceMeasurementInitState.yAxisVisible && this.distanceMeasurementsPlugin.defaultYAxisVisible;
                     this._currentDistanceMeasurement.zAxisVisible = this._currentDistanceMeasurementInitState.zAxisVisible && this.distanceMeasurementsPlugin.defaultZAxisVisible;
                     this._currentDistanceMeasurement.targetVisible = this._currentDistanceMeasurementInitState.targetVisible;
+                    this._currentDistanceMeasurement.target.entity = mouseHoverEntity;
                     this._currentDistanceMeasurement.target.worldPos = pointerWorldPos.slice();
                     this._markerDiv.style.marginLeft = `-10000px`;
                     this._markerDiv.style.marginTop = `-10000px`;
@@ -256,12 +259,26 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                     this._currentDistanceMeasurement = distanceMeasurementsPlugin.createMeasurement({
                         id: math.createUUID(),
                         origin: {
+                            entity: mouseHoverEntity,
                             worldPos: pointerWorldPos.slice()
                         },
                         target: {
+                            entity: mouseHoverEntity,
                             worldPos: pointerWorldPos.slice()
                         },
-                        approximate: true
+                        approximate: true,
+                        xAxisColor: distanceMeasurementsPlugin.xAxisColor,
+                        yAxisColor: distanceMeasurementsPlugin.yAxisColor,
+                        zAxisColor: distanceMeasurementsPlugin.zAxisColor,
+                        xAxisLabelColor: distanceMeasurementsPlugin.xAxisLabelColor,
+                        yAxisLabelColor: distanceMeasurementsPlugin.yAxisLabelColor,
+                        zAxisLabelColor: distanceMeasurementsPlugin.zAxisLabelColor,
+                        xAxisClassName: distanceMeasurementsPlugin.xAxisClassName,
+                        yAxisClassName: distanceMeasurementsPlugin.yAxisClassName,
+                        zAxisClassName: distanceMeasurementsPlugin.zAxisClassName,
+                        xAxisLabelClassName: distanceMeasurementsPlugin.xAxisLabelClassName,
+                        yAxisLabelClassName: distanceMeasurementsPlugin.yAxisLabelClassName,
+                        zAxisLabelClassName: distanceMeasurementsPlugin.zAxisLabelClassName,
                     });
                     this._currentDistanceMeasurementInitState.axisVisible = this._currentDistanceMeasurement.axisVisible && this.distanceMeasurementsPlugin.defaultAxisVisible;
                     this._currentDistanceMeasurementInitState.xAxisVisible = this._currentDistanceMeasurement.xAxisVisible && this.distanceMeasurementsPlugin.defaultXAxisVisible;

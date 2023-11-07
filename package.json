@@ -1,6 +1,6 @@
 {
-  "name": "@xeokit/xeokit-sdk",
-  "version": "2.4.1",
+  "name": "@cks-ct/xeokit-sdk",
+  "version": "0.0.11",
   "description": "Web Programming Toolkit for 3D/2D BIM and AEC Graphics",
   "module": "./dist/xeokit-sdk.es.js",
   "main": "./dist/xeokit-sdk.cjs.js",
@@ -10,12 +10,11 @@
     "dev-build": "rollup --config rollup.dev.config.js; cp node_modules/web-ifc/web-ifc.wasm dist/.",
     "test": "percy exec -- node ./snapshots.js",
     "docs": "rm -Rf ./docs/*; ./node_modules/.bin/esdoc",
-    "typedocs": "rm -Rf ./docs/*; typedoc --tsconfig tsconfig.json",
-    "publish": "npm publish --access public"
+    "typedocs": "rm -Rf ./docs/*; typedoc --tsconfig tsconfig.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xeokit/xeokit-sdk.git"
+    "url": "git+https://github.com/cks-ct/xeokit-sdk.git"
   },
   "keywords": [
     "webgl",

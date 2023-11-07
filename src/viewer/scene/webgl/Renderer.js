@@ -1490,10 +1490,36 @@ const Renderer = function (scene, options) {
             snappedCanvasPos = scene.camera.projectWorldPos(snappedWorldPos);
         }
 
+        let pickedEntity = null;
+        const pickBuffer = renderBufferManager.getRenderBuffer("pick", {size: [1, 1]});
+
+        pickBuffer.bind();
+
+        if (pickResultMiddleXY[3] !== 0) {
+            const pickedLayerParmasSurface = layerParamsSurface[Math.abs(pickResultMiddleXY[3]) % layerParamsSurface.length];
+            const origin = pickedLayerParmasSurface.origin;
+
+            const pickable = gpuPickPickable(
+                pickBuffer,
+                canvasPos,
+                pickViewMatrix,
+                pickProjMatrix,
+                { canvasPos, pickSurface: true },
+                { origin },
+            );
+
+            if (pickable) {
+                pickedEntity = (pickable.delegatePickedEntity) ? pickable.delegatePickedEntity() : pickable;
+            }
+        }
+
+        pickBuffer.unbind();
+
         return {
             snapType,
             snappedToVertex: snapType === "vertex",
             snappedToEdge: snapType === "edge",
+            entity: pickedEntity,
             worldPos,
             worldNormal,
             snappedWorldPos,

@@ -12,7 +12,9 @@ class Label {
         this._culled = false;
 
         this._label = document.createElement('div');
-        this._label.className += this._label.className ? ' viewer-ruler-label' : 'viewer-ruler-label';
+
+        var className = 'viewer-ruler-label' + (cfg.className ? (' ' + cfg.className) : '');
+        this._label.className += this._label.className ? (' ' + className) : className;
 
         var label = this._label;
         var style = label.style;

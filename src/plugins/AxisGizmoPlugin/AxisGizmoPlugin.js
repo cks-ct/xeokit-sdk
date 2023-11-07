@@ -120,58 +120,65 @@ class AxisGizmoPlugin extends Plugin {
         }));
 
         const xAxisMaterial = new PhongMaterial(axisGizmoScene, { // Red by convention
-            diffuse: [1, 0.3, 0.3],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [139 / 255, 197 / 255, 64 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [139 / 255, 197 / 255, 64 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const xAxisLabelMaterial = new PhongMaterial(axisGizmoScene, { // Red by convention
-            emissive: [1, 0.3, 0.3],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [139 / 255, 197 / 255, 64 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [139 / 255, 197 / 255, 64 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const yAxisMaterial = new PhongMaterial(axisGizmoScene, { // Green by convention
-            diffuse: [0.3, 1, 0.3],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [252 / 255, 86 / 255, 86 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [252 / 255, 86 / 255, 86 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const yAxisLabelMaterial = new PhongMaterial(axisGizmoScene, { // Green by convention
-            emissive: [0.3, 1, 0.3],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [252 / 255, 86 / 255, 86 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [252 / 255, 86 / 255, 86 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const zAxisMaterial = new PhongMaterial(axisGizmoScene, { // Blue by convention
-            diffuse: [0.3, 0.3, 1],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [52 / 255, 144 / 255, 228 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [52 / 255, 144 / 255, 228 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const zAxisLabelMaterial = new PhongMaterial(axisGizmoScene, {
-            emissive: [0.3, 0.3, 1],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [52 / 255, 144 / 255, 228 / 255],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [52 / 255, 144 / 255, 228 / 255],
+            shininess: 128,
             lineWidth: 2
         });
 
         const ballMaterial = new PhongMaterial(axisGizmoScene, {
-            diffuse: [0.5, 0.5, 0.5],
+            diffuse: [0.0, 0.0, 0.0],
+            emissive: [0.5, 0.5, 0.5],
             ambient: [0.0, 0.0, 0.0],
-            specular: [.6, .6, .3],
-            shininess: 80,
+            specular: [0.5, 0.5, 0.5],
+            shininess: 128,
             lineWidth: 2
         });
 
@@ -189,10 +196,10 @@ class AxisGizmoPlugin extends Plugin {
                 })),
                 material: new PhongMaterial(axisGizmoScene, {
                     diffuse: [0.0, 0.0, 0.0],
-                    emissive: [0.1, 0.1, 0.1],
-                    ambient: [0.1, 0.1, 0.2],
-                    specular: [0, 0, 0],
-                    alpha: 0.4,
+                    emissive: [0.5, 0.5, 0.5],
+                    ambient: [0.0, 0.0, 0.0],
+                    specular: [0.5, 0.5, 0.5],
+                    alpha: 0.25,
                     alphaMode: "blend",
                     frontface: "cw"
                 }),
@@ -205,7 +212,7 @@ class AxisGizmoPlugin extends Plugin {
 
             new Mesh(axisGizmoScene, {  // Arrow
                 geometry: new ReadableGeometry(axisGizmoScene, buildSphereGeometry({
-                    radius: 1.0
+                    radius: 0.25
                 })),
                 material: ballMaterial,
                 pickable: false,
