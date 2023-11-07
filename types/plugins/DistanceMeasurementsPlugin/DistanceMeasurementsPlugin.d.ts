@@ -23,6 +23,30 @@ export declare type DistanceMeasurementsPluginConfiguration = {
   defaultColor?: string;
   /** If set, the wires, dots and labels will have this zIndex (+1 for dots and +2 for labels). */
   zIndex?: number;
+  /** If set, the X wire will have this color */
+  xAxisColor?: string;
+  /** If set, the Y wire will have this color */
+  yAxisColor?: string;
+  /** If set, the Z wire will have this color */
+  zAxisColor?: string;
+  /** If set, the X wire label will have this color */
+  xAxisLabelColor?: string;
+  /** If set, the Y wire label will have this color */
+  yAxisLabelColor?: string;
+  /** If set, the Z wire label will have this color */
+  zAxisLabelColor?: string;
+  /** If set, the X wire will have this class name */
+  xAxisClassName?: string;
+  /** If set, the Y wire will have this class name */
+  yAxisClassName?: string;
+  /** If set, the Z wire will have this class name */
+  zAxisClassName?: string;
+  /** If set, the X wire label will have this class name */
+  xAxisLabelClassName?: string;
+  /** If set, the Y wire label will have this class name */
+  yAxisLabelClassName?: string;
+  /** If set, the Z wire label will have this class name */
+  zAxisLabelClassName?: string;
 };
 
 /**
@@ -86,6 +110,18 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
    * @param {Boolean} [params.wireVisible=true] Whether to initially show the direct point-to-point wire between {@link DistanceMeasurement.origin} and {@link DistanceMeasurement.target}.
    * @param {Boolean} [params.axisVisible=true] Whether to initially show the axis-aligned wires between {@link DistanceMeasurement.origin} and {@link DistanceMeasurement.target}.
    * @param {string} [params.color] The color of the length dot, wire and label.
+   * @param {string} [params.xAxisColor] The color of the X axis wire.
+   * @param {string} [params.yAxisColor] The color of the Y axis wire.
+   * @param {string} [params.zAxisColor] The color of the Z axis wire.
+   * @param {string} [params.xAxisLabelColor] The color of the X axis label.
+   * @param {string} [params.yAxisLabelColor] The color of the Y axis label.
+   * @param {string} [params.zAxisLabelColor] The color of the Z axis label.
+   * @param {string} [params.xAxisClassName] The class name of the X axis wire.
+   * @param {string} [params.yAxisClassName] The class name of the Y axis wire.
+   * @param {string} [params.zAxisClassName] The class name of the Z axis wire.
+   * @param {string} [params.xAxisLabelClassName] The class name of the X axis label.
+   * @param {string} [params.yAxisLabelClassName] The class name of the Y axis label.
+   * @param {string} [params.zAxisLabelClassName] The class name of the Z axis label.
    * @returns {DistanceMeasurement} The new {@link DistanceMeasurement}.
    */
   createMeasurement(params?: {
@@ -104,6 +140,18 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
       wireVisible?: boolean;
       axisVisible?: boolean;
       color?: string;
+      xAxisColor?: string;
+      yAxisColor?: string;
+      zAxisColor?: string;
+      xAxisLabelColor?: string;
+      yAxisLabelColor?: string;
+      zAxisLabelColor?: string;
+      xAxisClassName?: string;
+      yAxisClassName?: string;
+      zAxisClassName?: string;
+      xAxisLabelClassName?: string;
+      yAxisLabelClassName?: string;
+      zAxisLabelClassName?: string;
   }): DistanceMeasurement;
   
   /**
@@ -122,6 +170,7 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
    * Fires when a measurement is created.
    * @param {String} event The measurementCreated event
    * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
    */
   on(event: "measurementCreated", callback: (measurement: DistanceMeasurement)=> void): string;
 
@@ -129,6 +178,7 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
    * Fires when a measurement is completed.
    * @param {String} event The measurementEnd event
    * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
    */
   on(event: "measurementEnd", callback: (measurement: DistanceMeasurement)=> void): string;
 
@@ -136,6 +186,7 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
    * Fires when a measurement is cancelled.
    * @param {String} event The measurementCancel event
    * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
    */
   on(event: "measurementCancel", callback: (measurement: DistanceMeasurement)=> void): string;
 
@@ -143,7 +194,21 @@ export declare class DistanceMeasurementsPlugin extends Plugin {
    * Fires when a measurement is destroyed.
    * @param {String} event The measurementDestroyed event
    * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
    */
    on(event: "measurementDestroyed", callback: (measurement: DistanceMeasurement)=> void): string;
-  
+
+  /**
+   * Fires when a mouse event is happened on measurement.
+   * @param {String} event The event
+   * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
+   */
+  on(event: "mouseOver" | "mouseLeave" | "contextMenu", callback: ({ event, measurement }: { event: MouseEvent, measurement: DistanceMeasurement })=> void): string;
+   
+  /**
+   * Cancels an event subscription that was previously made with {@link #on}.
+   * @param {String} subId Subscription ID
+   */
+  off(subId: string): void;
 }

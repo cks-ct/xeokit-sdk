@@ -140,8 +140,8 @@ class NavCubePlugin extends Plugin {
         this._navCubeCamera.ortho.near = 0.1;
         this._navCubeCamera.ortho.far = 2000;
 
-        navCubeScene.edgeMaterial.edgeColor = [0.2, 0.2, 0.2];
-        navCubeScene.edgeMaterial.edgeAlpha = 0.6;
+        navCubeScene.edgeMaterial.edgeColor = [0.4, 0.4, 0.4];
+        navCubeScene.edgeMaterial.edgeAlpha = 0.4;
 
         this._zUp = Boolean(viewer.camera.zUp);
 
@@ -236,14 +236,17 @@ class NavCubePlugin extends Plugin {
             geometry: new ReadableGeometry(navCubeScene, buildCylinderGeometry({
                 center: [0, 0, 0],
                 radiusTop: 0.001,
-                radiusBottom: 1.4,
+                radiusBottom: 2,
                 height: 0.01,
                 radialSegments: 20,
                 heightSegments: 1,
                 openEnded: true
             })),
             material: new PhongMaterial(navCubeScene, {
-                diffuse: [0.0, 0.0, 0.0], specular: [0, 0, 0], emissive: [0.0, 0.0, 0.0], alpha: 0.5
+                diffuse: [0.0, 0.0, 0.0],
+                specular: [155 / 255, 169 / 255, 173 / 255],
+                emissive: [155 / 255, 169 / 255, 173 / 255],
+                alpha: 0.2
             }),
             position: [0, -1.5, 0],
             visible: !!visible,

@@ -85,15 +85,39 @@ export declare class AngleMeasurementsPlugin extends Plugin {
 
   /**
    * Fires when a measurement is created.
-   * @param {String} event The measurementCreated event
+   * @param {String} event The event
    * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
    */
-  on(event: "measurementCreated", callback: (measurement: AngleMeasurement)=> void): void;
+  on(event: "measurementCreated" | "measurementDestroyed" | "measurementEnd", callback: (measurement: AngleMeasurement)=> void): string;
 
   /**
-   * Fires when a measurement is destroyed.
-   * @param {String} event The measurementDestroyed event
-   * @param {Function} callback Callback fired on the event
+   * Fires when the measurement is cancelled.
+   * @param event The measurementCancel event
+   * @param callback Called fired on the event
+   * @param scope  Scope for the callback
    */
-  on(event: "measurementDestroyed", callback: (measurement: AngleMeasurement)=> void): void;
+  on(event: "measurementCancel", callback: (measurement: AngleMeasurement) => void, scope?: any): string
+
+  /**
+   * Fires when the measurement is started.
+   * @param event The measurementStart event
+   * @param callback Called fired on the event
+   * @param scope  Scope for the callback
+   */
+  on(event: "measurementStart", callback: (measurement: AngleMeasurement) => void, scope?: any): string
+
+  /**
+   * Fires when a mouse event is happened on measurement.
+   * @param {String} event The event
+   * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
+   */
+  on(event: "mouseOver" | "mouseLeave" | "contextMenu", callback: ({ event, measurement }: { event: MouseEvent, measurement: AngleMeasurement })=> void): string;
+
+  /**
+   * Cancels an event subscription that was previously made with {@link #on}.
+   * @param {String} subId Subscription ID
+   */
+  off(subId: string): void;
 }

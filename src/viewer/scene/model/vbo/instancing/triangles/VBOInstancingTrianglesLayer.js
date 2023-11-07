@@ -35,9 +35,6 @@ export class VBOInstancingTrianglesLayer {
      * @param cfg.origin
      */
     constructor(cfg) {
-
-         console.info("Creating VBOInstancingTrianglesLayer");
-
         /**
          * Owner model
          * @type {VBOSceneModel}

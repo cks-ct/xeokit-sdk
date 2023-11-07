@@ -60,6 +60,22 @@ class DistanceMeasurement extends Component {
 
         this._color = cfg.color || this.plugin.defaultColor;
 
+        this._xAxisColor = cfg.xAxisColor;
+        this._yAxisColor = cfg.yAxisColor;
+        this._zAxisColor = cfg.zAxisColor;
+
+        this._xAxisLabelColor = cfg.xAxisLabelColor;
+        this._yAxisLabelColor = cfg.yAxisLabelColor;
+        this._zAxisLabelColor = cfg.zAxisLabelColor;
+
+        this._xAxisClassName = cfg.xAxisClassName;
+        this._yAxisClassName = cfg.yAxisClassName;
+        this._zAxisClassName = cfg.zAxisClassName;
+
+        this._xAxisLabelClassName = cfg.xAxisLabelClassName;
+        this._yAxisLabelClassName = cfg.yAxisLabelClassName;
+        this._zAxisLabelClassName = cfg.zAxisLabelClassName;
+
         const onMouseOver = cfg.onMouseOver ? (event) => {
             cfg.onMouseOver(event, this);
             this.plugin.viewer.scene.canvas.canvas.dispatchEvent(new MouseEvent('mouseover', event));
@@ -96,9 +112,9 @@ class DistanceMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -108,65 +124,68 @@ class DistanceMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._lengthWire = new Wire(this._container, {
             color: this._color,
-            thickness: 2,
+            thickness: 1,
             thicknessClickable: 6,
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 1 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._xAxisWire = new Wire(this._container, {
-            color: "#FF0000",
+            color: this._xAxisColor || "red",
+            className: this._xAxisClassName,
             thickness: 1,
             thicknessClickable: 6,
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 1 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._yAxisWire = new Wire(this._container, {
-            color: "green",
+            color: this._yAxisColor || "green",
+            className: this._yAxisClassName,
             thickness: 1,
             thicknessClickable: 6,
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 1 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._zAxisWire = new Wire(this._container, {
-            color: "blue",
+            color: this._zAxisColor || "blue",
+            className: this._zAxisClassName,
             thickness: 1,
             thicknessClickable: 6,
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 1 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -178,51 +197,54 @@ class DistanceMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._xAxisLabel = new Label(this._container, {
-            fillColor: "red",
+            fillColor: this._xAxisLabelColor || "red",
+            className: this._xAxisLabelClassName,
             prefix: "X",
             text: "",
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 3 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._yAxisLabel = new Label(this._container, {
-            fillColor: "green",
+            fillColor: this._yAxisLabelColor || "green",
+            className: this._yAxisLabelClassName,
             prefix: "Y",
             text: "",
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 3 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
         this._zAxisLabel = new Label(this._container, {
-            fillColor: "blue",
+            fillColor: this._zAxisLabelColor || "blue",
+            className: this._zAxisLabelClassName,
             prefix: "Z",
             text: "",
             zIndex: plugin.zIndex !== undefined ? plugin.zIndex + 3 : undefined,
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -351,7 +373,7 @@ class DistanceMeasurement extends Component {
 
         if (this._sectionPlanesDirty) {
 
-            if (this._isSliced(this._wp)) {
+            if (this._isSliced(this._originWorld) || this._isSliced(this._targetWorld)) {
                 this._xAxisLabel.setCulled(true);
                 this._yAxisLabel.setCulled(true);
                 this._zAxisLabel.setCulled(true);
@@ -422,7 +444,7 @@ class DistanceMeasurement extends Component {
             const scale = metrics.scale;
             const units = metrics.units;
             const unitInfo = metrics.unitsInfo[units];
-            const unitAbbrev = unitInfo.abbrev;
+            const unitAbbrev = this.plugin.viewer.localeService.translate(unitInfo.abbrev) || unitInfo.abbrev;
 
             for (var i = 0, len = pp.length; i < len; i += 4) {
                 cp[j] = left + Math.floor((1 + pp[i + 0] / pp[i + 3]) * canvasWidth / 2);
@@ -455,10 +477,8 @@ class DistanceMeasurement extends Component {
                 this._yAxisLabel.setPosOnWire(cp[2], cp[3], cp[4], cp[5]);
                 this._zAxisLabel.setPosOnWire(cp[4], cp[5], cp[6], cp[7]);
 
-                const tilde = this._approximate ? " ~ " : " = ";
-
                 this._length = Math.abs(math.lenVec3(math.subVec3(this._targetWorld, this._originWorld, distVec3)))
-                this._lengthLabel.setText(tilde + (this._length * scale).toFixed(2) + unitAbbrev);
+                this._lengthLabel.setText(" " + (this._length * scale).toFixed(2) + unitAbbrev);
 
                 const xAxisCanvasLength = Math.abs(lengthWire(cp[0], cp[1], cp[2], cp[3]));
                 const yAxisCanvasLength = Math.abs(lengthWire(cp[2], cp[3], cp[4], cp[5]));
@@ -471,21 +491,21 @@ class DistanceMeasurement extends Component {
                 this._zAxisLabelCulled = (zAxisCanvasLength < labelMinAxisLength);
 
                 if (!this._xAxisLabelCulled) {
-                    this._xAxisLabel.setText(tilde + Math.abs((this._targetWorld[0] - this._originWorld[0]) * scale).toFixed(2) + unitAbbrev);
+                    this._xAxisLabel.setText(" " + Math.abs((this._targetWorld[0] - this._originWorld[0]) * scale).toFixed(2) + unitAbbrev);
                     this._xAxisLabel.setCulled(!this.axisVisible);
                 } else {
                     this._xAxisLabel.setCulled(true);
                 }
 
                 if (!this._yAxisLabelCulled) {
-                    this._yAxisLabel.setText(tilde + Math.abs((this._targetWorld[1] - this._originWorld[1]) * scale).toFixed(2) + unitAbbrev);
+                    this._yAxisLabel.setText(" " + Math.abs((this._targetWorld[1] - this._originWorld[1]) * scale).toFixed(2) + unitAbbrev);
                     this._yAxisLabel.setCulled(!this.axisVisible);
                 } else {
                     this._yAxisLabel.setCulled(true);
                 }
 
                 if (!this._zAxisLabelCulled) {
-                    this._zAxisLabel.setText(tilde + Math.abs((this._targetWorld[2] - this._originWorld[2]) * scale).toFixed(2) + unitAbbrev);
+                    this._zAxisLabel.setText(" " + Math.abs((this._targetWorld[2] - this._originWorld[2]) * scale).toFixed(2) + unitAbbrev);
                     this._zAxisLabel.setCulled(!this.axisVisible);
                 } else {
                     this._zAxisLabel.setCulled(true);
@@ -504,7 +524,13 @@ class DistanceMeasurement extends Component {
             this._yAxisWire.setVisible(this.axisVisible && this.yAxisVisible);
             this._zAxisWire.setVisible(this.axisVisible && this.zAxisVisible);
 
+            this._xAxisLabel.setVisible(this.labelsVisible && this.axisVisible && this.xAxisVisible);
+            this._yAxisLabel.setVisible(this.labelsVisible && this.axisVisible && this.yAxisVisible);
+            this._zAxisLabel.setVisible(this.labelsVisible && this.axisVisible && this.zAxisVisible);
+
             this._lengthWire.setVisible(this.wireVisible);
+
+            this._lengthLabel.setVisible(this.labelsVisible)
             this._lengthLabel.setCulled(!this.wireVisible);
 
             this._cpDirty = false;

@@ -639,6 +639,7 @@ class CameraControl extends Component {
             followPointer: true,
             doublePickFlyTo: true,
             panRightClick: true,
+            panMiddleClick: true,
             showPivot: false,
             pointerEnabled: true,
             constrainVertical: false,
@@ -744,6 +745,7 @@ class CameraControl extends Component {
         }
         this.doublePickFlyTo = cfg.doublePickFlyTo;
         this.panRightClick = cfg.panRightClick;
+        this.panMiddleClick = cfg.panMiddleClick;
         this.active = cfg.active;
         this.followPointer = cfg.followPointer;
         this.rotationInertia = cfg.rotationInertia;
@@ -1267,7 +1269,7 @@ class CameraControl extends Component {
     }
 
     /**
-     * Sets whether either right-clicking (true) or middle-clicking (false) pans the {@link Camera}.
+     * Sets whether either right-clicking (true) pans the {@link Camera}.
      *
      * Default is ````true````.
      *
@@ -1286,6 +1288,28 @@ class CameraControl extends Component {
      */
     get panRightClick() {
         return this._configs.panRightClick;
+    }
+
+    /**
+     * Sets whether either middle-clicking (true) pans the {@link Camera}.
+     *
+     * Default is ````true````.
+     *
+     * @param {Boolean} value Set ````false```` to disable pan on right-click.
+     */
+    set panMiddleClick(value) {
+        this._configs.panMiddleClick = value !== false;
+    }
+
+    /**
+     * Gets whether middle-clicking pans the {@link Camera}.
+     *
+     * Default is ````true````.
+     *
+     * @returns {Boolean} Returns ````false```` when pan on right-click is disabled.
+     */
+    get panMiddleClick() {
+        return this._configs.panMiddleClick;
     }
 
     /**

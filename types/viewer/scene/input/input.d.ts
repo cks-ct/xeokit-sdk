@@ -11,6 +11,21 @@ import { Component } from "../Component";
 export declare class Input extends Component {
 
   /**
+   * Gets whether left mouse button is pressed.
+   */
+  mouseDownLeft: boolean;
+
+  /**
+   * Gets whether middle mouse button is pressed.
+   */
+  mouseDownMiddle: boolean;
+
+  /**
+   * Gets whether right mouse button is pressed.
+   */
+  mouseDownRight: boolean;
+
+  /**
    * Sets whether input handlers are enabled.
    */
   setEnabled(enable: boolean): void;
@@ -36,7 +51,7 @@ export declare class Input extends Component {
    * @param callback Called fired on the event
    * @param scope  Scope for the callback
    */
-  on(event: "mousedown" | "mouseup" | "mouseclicked" | "dblclick", callback: (canvasCoords: number[]) => void, scope?: any): string;
+  on(event: "mousedown" | "mouseup" | "mouseclicked" | "dblclick" | "mousemove", callback: (canvasCoords: number[]) => void, scope?: any): string;
 
    /**
    * Fires on keyboard events

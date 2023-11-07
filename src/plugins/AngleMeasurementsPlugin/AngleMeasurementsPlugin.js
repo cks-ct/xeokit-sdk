@@ -299,6 +299,7 @@ export class AngleMeasurementsPlugin extends Plugin {
 
     /**
      * Creates an {@link AngleMeasurement}.
+     * Creates an {@link AngleMeasurement}.
      *
      * The AngleMeasurement is then registered by {@link AngleMeasurement#id} in {@link AngleMeasurementsPlugin#measurements}.
      *

@@ -100,4 +100,18 @@ export declare class SectionPlanesPlugin extends Plugin {
    * Destroys all {@link SectionPlane}s created by this SectionPlanesPlugin.
    */
   clear(): void;
+
+  /**
+   * Fires when a mouse event is happened on section plane control.
+   * @param {String} event The event
+   * @param {Function} callback Callback fired on the event
+   * @return {String} Handle to the subscription, which may be used to unsubscribe with {@link #off}.
+   */
+  on(event: "controlMouseEnter" | "controlMouseLeave", callback: ()=> void): string;
+
+  /**
+   * Cancels an event subscription that was previously made with {@link #on}.
+   * @param {String} subId Subscription ID
+   */
+  off(subId: string): void;
 }

@@ -88,6 +88,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
         markerDiv.setAttribute('id', 'myMarkerDiv');
         const canvas = this.scene.canvas.canvas;
         canvas.parentNode.insertBefore(markerDiv, canvas);
+
         markerDiv.style.background = "black";
         markerDiv.style.border = "2px solid blue";
         markerDiv.style.borderRadius = "10px";
@@ -169,15 +170,12 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
      * Activates this DistanceMeasurementsMouseControl, ready to respond to input.
      */
     activate() {
-
         if (this._active) {
             return;
         }
-
         if (!this._markerDiv) {
             this._initMarkerDiv()
         }
-
         this.fire("activated", true);
 
         const distanceMeasurementsPlugin = this.distanceMeasurementsPlugin;
@@ -186,6 +184,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
         const canvas = scene.canvas.canvas;
         const input = scene.input;
         let mouseHovering = false;
+        let mouseHoverEntity = false;
         const pointerWorldPos = math.vec3();
         const pointerCanvasPos = math.vec2();
         let pointerDownCanvasX;
@@ -201,18 +200,12 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                 : "hoverSurface", event => {
                 const canvasPos = event.snappedCanvasPos || event.canvasPos;
                 mouseHovering = true;
+                mouseHoverEntity = event.entity;
                 pointerWorldPos.set(event.worldPos);
                 pointerCanvasPos.set(event.canvasPos);
                 if (this._mouseState === MOUSE_FIRST_CLICK_EXPECTED) {
-                    
-                    const canvasBoundRect = canvas.getBoundingClientRect();
-                    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                    const canvasLeftEdge = canvasBoundRect.left + scrollLeft;
-                    const canvasTopEdge = canvasBoundRect.top + scrollTop;
-                    
-                    this._markerDiv.style.marginLeft = `${canvasLeftEdge + canvasPos[0] - 5}px`;
-                    this._markerDiv.style.marginTop = `${canvasTopEdge + canvasPos[1] - 5}px`;
+                    this._markerDiv.style.marginLeft = `${canvasPos[0] - 5}px`;
+                    this._markerDiv.style.marginTop = `${canvasPos[1] - 5}px`;
                     this._markerDiv.style.background = "pink";
                     if (event.snappedToVertex || event.snappedToEdge) {
                         if (this.pointerLens) {
@@ -230,8 +223,8 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                             this.pointerLens.snappedCanvasPos = event.canvasPos;
                             this.pointerLens.snapped = false;
                         }
-                        this._markerDiv.style.background = "pink";
-                        this._markerDiv.style.border = "2px solid red";
+                        this._markerDiv.style.background = "greenyellow";
+                        this._markerDiv.style.border = "2px solid green";
                     }
                     hoveredEntity = event.entity;
                 } else {
@@ -246,6 +239,7 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                     this._currentDistanceMeasurement.yAxisVisible = this._currentDistanceMeasurementInitState.yAxisVisible && this.distanceMeasurementsPlugin.defaultYAxisVisible;
                     this._currentDistanceMeasurement.zAxisVisible = this._currentDistanceMeasurementInitState.zAxisVisible && this.distanceMeasurementsPlugin.defaultZAxisVisible;
                     this._currentDistanceMeasurement.targetVisible = this._currentDistanceMeasurementInitState.targetVisible;
+                    this._currentDistanceMeasurement.target.entity = mouseHoverEntity;
                     this._currentDistanceMeasurement.target.worldPos = pointerWorldPos.slice();
                     this._markerDiv.style.marginLeft = `-10000px`;
                     this._markerDiv.style.marginTop = `-10000px`;
@@ -288,12 +282,30 @@ export class DistanceMeasurementsMouseControl extends DistanceMeasurementsContro
                     this._currentDistanceMeasurement = distanceMeasurementsPlugin.createMeasurement({
                         id: math.createUUID(),
                         origin: {
+                            entity: mouseHoverEntity,
                             worldPos: pointerWorldPos.slice()
                         },
                         target: {
+                            entity: mouseHoverEntity,
                             worldPos: pointerWorldPos.slice()
                         },
-                        approximate: true
+                        approximate: true,
+                        xAxisColor: distanceMeasurementsPlugin.xAxisColor,
+                        yAxisColor: distanceMeasurementsPlugin.yAxisColor,
+                        zAxisColor: distanceMeasurementsPlugin.zAxisColor,
+                        xAxisLabelColor: distanceMeasurementsPlugin.xAxisLabelColor,
+                        yAxisLabelColor: distanceMeasurementsPlugin.yAxisLabelColor,
+                        zAxisLabelColor: distanceMeasurementsPlugin.zAxisLabelColor,
+                        xAxisClassName: distanceMeasurementsPlugin.xAxisClassName,
+                        yAxisClassName: distanceMeasurementsPlugin.yAxisClassName,
+                        zAxisClassName: distanceMeasurementsPlugin.zAxisClassName,
+                        xAxisLabelClassName: distanceMeasurementsPlugin.xAxisLabelClassName,
+                        yAxisLabelClassName: distanceMeasurementsPlugin.yAxisLabelClassName,
+                        zAxisLabelClassName: distanceMeasurementsPlugin.zAxisLabelClassName,
+                        axisVisible: false,
+                        xAxisVisible: false,
+                        yAxisVisible: false,
+                        zAxisVisible: false,
                     });
                     this._currentDistanceMeasurementInitState.axisVisible = this._currentDistanceMeasurement.axisVisible && this.distanceMeasurementsPlugin.defaultAxisVisible;
                     this._currentDistanceMeasurementInitState.xAxisVisible = this._currentDistanceMeasurement.xAxisVisible && this.distanceMeasurementsPlugin.defaultXAxisVisible;

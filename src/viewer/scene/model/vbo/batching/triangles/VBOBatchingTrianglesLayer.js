@@ -40,9 +40,6 @@ export class VBOBatchingTrianglesLayer {
      * @param cfg.solid
      */
     constructor(cfg) {
-
-        console.info("Creating VBOBatchingTrianglesLayer");
-
         /**
          * Owner model
          * @type {VBOSceneModel}

@@ -7,7 +7,9 @@ class Wire {
         this._highlightClass = "viewer-ruler-wire-highlighted";
 
         this._wire = document.createElement('div');
-        this._wire.className += this._wire.className ? ' viewer-ruler-wire' : 'viewer-ruler-wire';
+
+        var className = 'viewer-ruler-wire' + (cfg.className ? (' ' + cfg.className) : '');
+        this._wire.className += this._wire.className ? (' ' + className) : className;
 
         this._wireClickable = document.createElement('div');
         this._wireClickable.className += this._wireClickable.className ? ' viewer-ruler-wire-clickable' : 'viewer-ruler-wire-clickable';
@@ -79,13 +81,17 @@ class Wire {
 
         if (cfg.onMouseOver) {
             wireClickable.addEventListener('mouseover', (event) => {
-                cfg.onMouseOver(event, this);
+                if (this._visible) {
+                    cfg.onMouseOver(event, this);
+                }
             });
         }
 
         if (cfg.onMouseLeave) {
             wireClickable.addEventListener('mouseleave', (event) => {
-                cfg.onMouseLeave(event, this);
+                if (this._visible) {
+                    cfg.onMouseLeave(event, this);
+                }
             });
         }
 
@@ -115,8 +121,10 @@ class Wire {
 
         if (cfg.onContextMenu) {
             wireClickable.addEventListener('contextmenu', (event) => {
-                cfg.onContextMenu(event, this);
-                event.preventDefault();
+                if (this._visible) {
+                    cfg.onContextMenu(event, this);
+                    event.preventDefault();
+                }
             });
         }
 
