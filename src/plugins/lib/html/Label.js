@@ -12,7 +12,9 @@ class Label {
         this._culled = false;
 
         this._label = document.createElement('div');
-        this._label.className += this._label.className ? ' viewer-ruler-label' : 'viewer-ruler-label';
+
+        var className = 'viewer-ruler-label' + (cfg.className ? (' ' + cfg.className) : '');
+        this._label.className += this._label.className ? (' ' + className) : className;
 
         var label = this._label;
         var style = label.style;
@@ -45,15 +47,19 @@ class Label {
 
         if (cfg.onMouseOver) {
             label.addEventListener('mouseover', (event) => {
-                cfg.onMouseOver(event, this);
-                event.preventDefault();
+                if (this._visible) {
+                    cfg.onMouseOver(event, this);
+                    event.preventDefault();
+                }
             });
         }
 
         if (cfg.onMouseLeave) {
             label.addEventListener('mouseleave', (event) => {
-                cfg.onMouseLeave(event, this);
-                event.preventDefault();
+                if (this._visible) {
+                    cfg.onMouseLeave(event, this);
+                    event.preventDefault();
+                }
             });
         }
 
@@ -85,10 +91,12 @@ class Label {
 
         if (cfg.onContextMenu) {
             label.addEventListener('contextmenu', (event) => {
-                cfg.onContextMenu(event, this);
-                event.preventDefault();
-                event.stopPropagation();
-                console.log("Label context menu")
+                if (this._visible) {
+                    cfg.onContextMenu(event, this);
+                    event.preventDefault();
+                    event.stopPropagation();
+                    console.log("Label context menu")
+                }
             });
         }
     }

@@ -18,6 +18,14 @@ export declare class SceneModel extends Component {
     on(event: "loaded", callback: (loaded: true) => void, scope?: any): string;
 
     /**
+     * Fires when the model is destroyed
+     * @param event The destroyed event
+     * @param callback Called fired on the event
+     * @param scope  Scope for the callback
+     */
+    on(event: "destroyed", callback: (modelId: string) => void, scope?: any): string;
+
+    /**
      * Fires when the loading the model has an error
      * @param event The error event
      * @param callback Called fired on the event
@@ -167,9 +175,6 @@ export declare class SceneModel extends Component {
      * @type {number[]}
      */
     get aabb(): number[];
-
-
-    get numEntities(): number;
 
     /**
      * The number of entities in this SceneModel.

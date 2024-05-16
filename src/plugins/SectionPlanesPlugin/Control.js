@@ -34,6 +34,7 @@ class Control {
          */
         this.id = null;
 
+        this._plugin = plugin;
         this._viewer = plugin.viewer;
 
         this._visible = false;
@@ -274,59 +275,59 @@ class Control {
             }),
 
             red: new PhongMaterial(rootNode, {
-                diffuse: [1, 0.0, 0.0],
-                emissive: [1, 0.0, 0.0],
+                diffuse: [0.0, 0.0, 0.0],
+                emissive: [252 / 255, 86 / 255, 86 / 255],
                 ambient: [0.0, 0.0, 0.0],
-                specular: [.6, .6, .3],
-                shininess: 80,
+                specular: [252 / 255, 86 / 255, 86 / 255],
+                shininess: 128,
                 lineWidth: 2
             }),
 
             highlightRed: new EmphasisMaterial(rootNode, { // Emphasis for red rotation affordance hoop
                 edges: false,
                 fill: true,
-                fillColor: [1, 0, 0],
+                fillColor: [252 / 255, 86 / 255, 86 / 255],
                 fillAlpha: 0.6
             }),
 
             green: new PhongMaterial(rootNode, {
-                diffuse: [0.0, 1, 0.0],
-                emissive: [0.0, 1, 0.0],
+                diffuse: [0.0, 0.0, 0.0],
+                emissive: [139 / 255, 197 / 255, 64 / 255],
                 ambient: [0.0, 0.0, 0.0],
-                specular: [.6, .6, .3],
-                shininess: 80,
+                specular: [139 / 255, 197 / 255, 64 / 255],
+                shininess: 128,
                 lineWidth: 2
             }),
 
             highlightGreen: new EmphasisMaterial(rootNode, { // Emphasis for green rotation affordance hoop
                 edges: false,
                 fill: true,
-                fillColor: [0, 1, 0],
+                fillColor: [139 / 255, 197 / 255, 64 / 255],
                 fillAlpha: 0.6
             }),
 
             blue: new PhongMaterial(rootNode, {
-                diffuse: [0.0, 0.0, 1],
-                emissive: [0.0, 0.0, 1],
+                diffuse: [0.0, 0.0, 0.0],
+                emissive: [52 / 255, 144 / 255, 228 / 255],
                 ambient: [0.0, 0.0, 0.0],
-                specular: [.6, .6, .3],
-                shininess: 80,
+                specular: [52 / 255, 144 / 255, 228 / 255],
+                shininess: 128,
                 lineWidth: 2
             }),
 
             highlightBlue: new EmphasisMaterial(rootNode, { // Emphasis for blue rotation affordance hoop
                 edges: false,
                 fill: true,
-                fillColor: [0, 0, 1],
+                fillColor: [52 / 255, 144 / 255, 228 / 255],
                 fillAlpha: 0.2
             }),
 
             center: new PhongMaterial(rootNode, {
                 diffuse: [0.0, 0.0, 0.0],
-                emissive: [0, 0, 0],
+                emissive: [0.5, 0.5, 0.5],
                 ambient: [0.0, 0.0, 0.0],
-                specular: [.6, .6, .3],
-                shininess: 80
+                specular: [0.5, 0.5, 0.5],
+                shininess: 128
             }),
 
             highlightBall: new EmphasisMaterial(rootNode, {
@@ -341,7 +342,7 @@ class Control {
                 edges: true,
                 edgeWidth: 3,
                 fill: false,
-                fillColor: [0.5, 0.5, .5],
+                fillColor: [139 / 255, 197 / 255, 64 / 255],
                 fillAlpha: 0.5,
                 vertices: false
             })
@@ -361,17 +362,20 @@ class Control {
                     indices: [0, 1, 2, 2, 3, 0]
                 }),
                 material: new PhongMaterial(rootNode, {
-                    emissive: [0, 0.0, 0],
-                    diffuse: [0, 0, 0],
+                    diffuse: [0.0, 0.0, 0.0],
+                    emissive: [139 / 255, 197 / 255, 64 / 255],
+                    ambient: [0.0, 0.0, 0.0],
+                    specular: [139 / 255, 197 / 255, 64 / 255],
+                    shininess: 128,
                     backfaces: true
                 }),
-                opacity: 0.6,
+                opacity: 0.5,
                 ghosted: true,
                 ghostMaterial: new EmphasisMaterial(rootNode, {
                     edges: false,
                     filled: true,
-                    fillColor: [1, 1, 0],
-                    edgeColor: [0, 0, 0],
+                    fillColor: [139 / 255, 197 / 255, 64 / 255],
+                    edgeColor: [139 / 255, 197 / 255, 64 / 255],
                     fillAlpha: 0.1,
                     backfaces: true
                 }),
@@ -393,18 +397,19 @@ class Control {
                     arc: Math.PI * 2.0
                 })),
                 material: new PhongMaterial(rootNode, {
-                    emissive: [0, 0, 0],
-                    diffuse: [0, 0, 0],
-                    specular: [0, 0, 0],
-                    shininess: 0
+                    diffuse: [0.0, 0.0, 0.0],
+                    emissive: [139 / 255, 197 / 255, 64 / 255],
+                    ambient: [0.0, 0.0, 0.0],
+                    specular: [139 / 255, 197 / 255, 64 / 255],
+                    shininess: 128,
                 }),
                 //highlighted: true,
                 highlightMaterial: new EmphasisMaterial(rootNode, {
                     edges: false,
-                    edgeColor: [0.0, 0.0, 0.0],
+                    edgeColor: [139 / 255, 197 / 255, 64 / 255],
                     filled: true,
-                    fillColor: [0.8, 0.8, 0.8],
-                    fillAlpha: 1.0
+                    fillColor: [139 / 255, 197 / 255, 64 / 255],
+                    fillAlpha: 0.5
                 }),
                 pickable: false,
                 collidable: false,
@@ -1164,46 +1169,55 @@ class Control {
                     case this._displayMeshes.xAxisArrowHandle.id:
                         affordanceMesh = this._affordanceMeshes.xAxisArrow;
                         nextDragAction = DRAG_ACTIONS.xTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.xAxisHandle.id:
                         affordanceMesh = this._affordanceMeshes.xAxisArrow;
                         nextDragAction = DRAG_ACTIONS.xTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.yAxisArrowHandle.id:
                         affordanceMesh = this._affordanceMeshes.yAxisArrow;
                         nextDragAction = DRAG_ACTIONS.yTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.yShaftHandle.id:
                         affordanceMesh = this._affordanceMeshes.yAxisArrow;
                         nextDragAction = DRAG_ACTIONS.yTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.zAxisArrowHandle.id:
                         affordanceMesh = this._affordanceMeshes.zAxisArrow;
                         nextDragAction = DRAG_ACTIONS.zTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.zAxisHandle.id:
                         affordanceMesh = this._affordanceMeshes.zAxisArrow;
                         nextDragAction = DRAG_ACTIONS.zTranslate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.xCurveHandle.id:
                         affordanceMesh = this._affordanceMeshes.xHoop;
                         nextDragAction = DRAG_ACTIONS.xRotate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.yCurveHandle.id:
                         affordanceMesh = this._affordanceMeshes.yHoop;
                         nextDragAction = DRAG_ACTIONS.yRotate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     case this._displayMeshes.zCurveHandle.id:
                         affordanceMesh = this._affordanceMeshes.zHoop;
                         nextDragAction = DRAG_ACTIONS.zRotate;
+                        this._plugin.fire('controlMouseEnter');
                         break;
 
                     default:
@@ -1223,6 +1237,7 @@ class Control {
                 }
                 if (lastAffordanceMesh) {
                     lastAffordanceMesh.visible = false;
+                    this._plugin.fire('controlMouseLeave');
                 }
                 lastAffordanceMesh = null;
                 nextDragAction = DRAG_ACTIONS.none;

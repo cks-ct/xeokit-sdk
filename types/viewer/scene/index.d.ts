@@ -5,6 +5,7 @@ export * from "./Bitmap";
 export * from "./camera";
 export * from "./CameraControl/CameraControl";
 export * from "./geometry";
+export * from "./ImagePlane";
 export * from "./lights";
 export * from "./marker";
 export * from "./materials";

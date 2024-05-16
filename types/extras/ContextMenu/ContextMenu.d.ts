@@ -80,7 +80,13 @@ export declare class ContextMenu {
     @param {String} event The event
     @param {Function} callback Callback fired on the event
     */
-  on(event: string, callback: Function): void;
+  on(event: string, callback: Function): string;
+
+  /**
+   * Cancels an event subscription that was previously made with {@link ContextMenu.on}.
+   * @param {String} subId Subscription ID
+   */
+  off(subId: string): void;
 
   /**
    Fires an event at this ````ContextMenu````.

@@ -155,7 +155,7 @@ class SectionPlanesPlugin extends Plugin {
                     }),
 
                     onClickedNothing: (() => {
-                        this.hideControl();
+                        // this.hideControl();
                     })
                 });
             }

@@ -201,11 +201,11 @@ export declare class CameraControl extends Component {
   get doublePickFlyTo(): boolean;
 
   /**
-   * Sets whether either right-clicking (true) or middle-clicking (false) pans the {@link Camera}.
+   * Sets whether either right-clicking (true) pans the {@link Camera}.
    *
    * Default is ````true````.
    *
-   * @param {Boolean} value Set ````false```` to disable pan on right-click.
+   * @param {Boolean} arg Set ````false```` to disable pan on right-click.
    */
   set panRightClick(arg: boolean);
 
@@ -217,6 +217,24 @@ export declare class CameraControl extends Component {
    * @returns {Boolean} Returns ````false```` when pan on right-click is disabled.
    */
   get panRightClick(): boolean;
+
+  /**
+   * Sets whether either middle-clicking (true) pans the {@link Camera}.
+   *
+   * Default is ````true````.
+   *
+   * @param {Boolean} arg Set ````false```` to disable pan on right-click.
+   */
+  set panMiddleClick(arg: boolean);
+
+  /**
+   * Gets whether middle-clicking pans the {@link Camera}.
+   *
+   * Default is ````true````.
+   *
+   * @returns {Boolean} Returns ````false```` when pan on right-click is disabled.
+   */
+  get panMiddleClick(): boolean;
 
   /**
    *  Sets if this ````CameraControl```` is active or not.

@@ -208,6 +208,7 @@ class PickController {
                 pickResult.worldPos = this.snapPickResult.worldPos;
                 pickResult.canvasPos = this.pickCursorPos
                 pickResult.snappedCanvasPos = this.snapPickResult.snappedCanvasPos;
+                pickResult.entity = this.snapPickResult.entity;
                 this._cameraControl.fire("hoverSnapOrSurface", pickResult, true);
                 this.snapPickResult = null;
             } else {

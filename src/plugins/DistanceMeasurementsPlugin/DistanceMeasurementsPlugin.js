@@ -284,6 +284,18 @@ class DistanceMeasurementsPlugin extends Plugin {
      * @param {number} [cfg.zIndex] If set, the wires, dots and labels will have this zIndex (+1 for dots and +2 for labels).
      * @param {boolean} [cfg.defaultLabelsOnWires=true] The default value of the DistanceMeasurements `labelsOnWires` property.
      * @param {PointerCircle} [cfg.pointerLens] A PointerLens to help the user position the pointer. This can be shared with other plugins.
+     * @param {string} [cfg.xAxisColor] The color of the X axis wire.
+     * @param {string} [cfg.yAxisColor] The color of the Y axis wire.
+     * @param {string} [cfg.zAxisColor] The color of the Z axis wire.
+     * @param {string} [cfg.xAxisLabelColor] The color of the X axis label.
+     * @param {string} [cfg.yAxisLabelColor] The color of the Y axis label.
+     * @param {string} [cfg.zAxisLabelColor] The color of the Z axis label.
+     * @param {string} [cfg.xAxisClassName] The class name of the X axis wire.
+     * @param {string} [cfg.yAxisClassName] The class name of the Y axis wire.
+     * @param {string} [cfg.zAxisClassName] The class name of the Z axis wire.
+     * @param {string} [cfg.xAxisLabelClassName] The class name of the X axis label.
+     * @param {string} [cfg.yAxisLabelClassName] The class name of the Y axis label.
+     * @param {string} [cfg.zAxisLabelClassName] The class name of the Z axis label.
      */
     constructor(viewer, cfg = {}) {
 
@@ -311,6 +323,18 @@ class DistanceMeasurementsPlugin extends Plugin {
         this.defaultColor = cfg.defaultColor !== undefined ? cfg.defaultColor : "#00BBFF";
         this.zIndex = cfg.zIndex || 10000;
         this.defaultLabelsOnWires = cfg.defaultLabelsOnWires !== false;
+        this.xAxisColor = cfg.xAxisColor
+        this.yAxisColor = cfg.yAxisColor
+        this.zAxisColor = cfg.zAxisColor
+        this.xAxisLabelColor = cfg.xAxisLabelColor
+        this.yAxisLabelColor = cfg.yAxisLabelColor
+        this.zAxisLabelColor = cfg.zAxisLabelColor
+        this.xAxisClassName = cfg.xAxisClassName
+        this.yAxisClassName = cfg.yAxisClassName
+        this.zAxisClassName = cfg.zAxisClassName
+        this.xAxisLabelClassName = cfg.xAxisLabelClassName
+        this.yAxisLabelClassName = cfg.yAxisLabelClassName
+        this.zAxisLabelClassName = cfg.zAxisLabelClassName
 
         this._onMouseOver = (event, measurement) => {
             this.fire("mouseOver", {
@@ -434,6 +458,18 @@ class DistanceMeasurementsPlugin extends Plugin {
      * @param {Boolean} [params.labelsVisible=true] Whether to initially show the labels.
      * @param {string} [params.color] The color of the length dot, wire and label.
      * @param {Boolean} [params.labelsOnWires=true] Determines if labels will be set on wires or one below the other.
+     * @param {string} [params.xAxisColor] The color of the X axis wire.
+     * @param {string} [params.yAxisColor] The color of the Y axis wire.
+     * @param {string} [params.zAxisColor] The color of the Z axis wire.
+     * @param {string} [params.xAxisLabelColor] The color of the X axis label.
+     * @param {string} [params.yAxisLabelColor] The color of the Y axis label.
+     * @param {string} [params.zAxisLabelColor] The color of the Z axis label.
+     * @param {string} [params.xAxisClassName] The class name of the X axis wire.
+     * @param {string} [params.yAxisClassName] The class name of the Y axis wire.
+     * @param {string} [params.zAxisClassName] The class name of the Z axis wire.
+     * @param {string} [params.xAxisLabelClassName] The class name of the X axis label.
+     * @param {string} [params.yAxisLabelClassName] The class name of the Y axis label.
+     * @param {string} [params.zAxisLabelClassName] The class name of the Z axis label.
      * @returns {DistanceMeasurement} The new {@link DistanceMeasurement}.
      */
     createMeasurement(params = {}) {
@@ -466,6 +502,18 @@ class DistanceMeasurementsPlugin extends Plugin {
             targetVisible: params.targetVisible,
             color: params.color,
             labelsOnWires: params.labelsOnWires !== false && this.defaultLabelsOnWires !== false,
+            xAxisColor: params.xAxisColor,
+            yAxisColor: params.yAxisColor,
+            zAxisColor: params.zAxisColor,
+            xAxisLabelColor: params.xAxisLabelColor,
+            yAxisLabelColor: params.yAxisLabelColor,
+            zAxisLabelColor: params.zAxisLabelColor,
+            xAxisClassName: params.xAxisClassName,
+            yAxisClassName: params.yAxisClassName,
+            zAxisClassName: params.zAxisClassName,
+            xAxisLabelClassName: params.xAxisLabelClassName,
+            yAxisLabelClassName: params.yAxisLabelClassName,
+            zAxisLabelClassName: params.zAxisLabelClassName,
             onMouseOver: this._onMouseOver,
             onMouseLeave: this._onMouseLeave,
             onContextMenu: this._onContextMenu

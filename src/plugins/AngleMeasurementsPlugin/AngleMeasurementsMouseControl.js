@@ -103,10 +103,10 @@ export class AngleMeasurementsMouseControl extends AngleMeasurementsControl {
     }
 
     _destroyMarkerDiv() {
-        if (this._markerDiv) {
+        if (this.markerDiv) {
             const element = document.getElementById('myMarkerDiv')
             element.parentNode.removeChild(element)
-            this._markerDiv = null
+            this.markerDiv = null
         }
     }
 
@@ -219,8 +219,8 @@ export class AngleMeasurementsMouseControl extends AngleMeasurementsControl {
                         pointerLens.snappedCanvasPos = event.canvasPos;
                         pointerLens.snapped = false;
                     }
-                    this.markerDiv.style.background = "pink";
-                    this.markerDiv.style.border = "2px solid red";
+                    this.markerDiv.style.background = "greenyellow";
+                    this.markerDiv.style.border = "2px solid green";
                 }
                 const canvasPos = event.snappedCanvasPos || event.canvasPos;
                 mouseHovering = true;
