@@ -80,6 +80,8 @@ export declare class AnnotationsPlugin extends Plugin {
    * @param {Number[]} [params.look] Optional World-space position for {@link Camera.look}, used when this Annotation is associated with a {@link Camera} position.
    * @param {Number[]} [params.up] Optional World-space position for {@link Camera.up}, used when this Annotation is associated with a {@link Camera} position.
    * @param {String} [params.projection] Optional projection type for {@link Camera.projection}, used when this Annotation is associated with a {@link Camera} position.
+   * @param {Number} [params.labelXOffset] Optional label offset by X axis.
+   * @param {Number} [params.labelYOffset] Optional label offset by Y axis.
    * @returns {Annotation} The new {@link Annotation}.
    */
   createAnnotation(params: {
@@ -99,6 +101,8 @@ export declare class AnnotationsPlugin extends Plugin {
       look?: number[];
       up?: number[];
       projection?: string;
+      labelXOffset?: number;
+      labelYOffset?: number;
   }): Annotation;
   
   /**
@@ -118,33 +122,46 @@ export declare class AnnotationsPlugin extends Plugin {
    * @param {String} event The annotationCreated event
    * @param {Function} callback Callback fired on the event
    */
-  on(event: "annotationCreated", callback: (annotationId: string)=> void): void;
+  on(event: "annotationCreated", callback: (annotationId: string)=> void): string;
 
   /**
    * Fires when a annotation is destroyed.
    * @param {String} event The annotationDestroyed event
    * @param {Function} callback Callback fired on the event
    */
-  on(event: "annotationDestroyed", callback: (annotationId: string)=> void): void;
+  on(event: "annotationDestroyed", callback: (annotationId: string)=> void): string;
 
   /**
    * Fires when a mouse enters a annotation.
    * @param {String} event The markerMouseEnter event
    * @param {Function} callback Callback fired on the event
    */
-   on(event: "markerMouseEnter", callback: (annotation: Annotation)=> void): void;
+  on(event: "markerMouseEnter", callback: (annotation: Annotation)=> void): string;
 
   /**
    * Fires when a mouse leave an annotation.
    * @param {String} event The markerMouseLeave event
    * @param {Function} callback Callback fired on the event
    */
-  on(event: "markerMouseLeave", callback: (annotation: Annotation)=> void): void;
+  on(event: "markerMouseLeave", callback: (annotation: Annotation)=> void): string;
 
   /**
    * Fires when a mouse leave an annotation.
    * @param {String} event The markerClicked event
    * @param {Function} callback Callback fired on the event
    */
-  on(event: "markerClicked", callback: (annotation: Annotation)=> void): void;
+  on(event: "markerClicked", callback: (annotation: Annotation)=> void): string;
+
+  /**
+   * Fires when a context menu an annotation.
+   * @param {String} event The markerContextMenu event
+   * @param {Function} callback Callback fired on the event
+   */
+  on(event: "markerContextMenu", callback: ({ annotation, event }: { annotation: Annotation, event: MouseEvent })=> void): string;
+
+  /**
+   * Cancels an event subscription that was previously made with {@link #on}.
+   * @param {String} subId Subscription ID
+   */
+  off(subId: string): void;
 }

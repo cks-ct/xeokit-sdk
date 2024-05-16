@@ -342,12 +342,14 @@ class Viewer {
         const canvas = this.scene.canvas.canvas;
         const saveWidth = canvas.clientWidth;
         const saveHeight = canvas.clientHeight;
+        const saveCssWidth = canvas.style.width;
+        const saveCssHeight = canvas.style.height;
         const width = params.width ? Math.floor(params.width) : canvas.width;
         const height = params.height ? Math.floor(params.height) : canvas.height;
 
         if (resize) {
-            canvas.width = width;
-            canvas.height = height;
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
         }
 
         if (!this._snapshotBegun) {
@@ -361,27 +363,13 @@ class Viewer {
             this.sendToPlugins("snapshotStarting"); // Tells plugins to hide things that shouldn't be in snapshot
         }
 
-        const captured = {};
-        for (let i = 0, len = this._plugins.length; i < len; i++) {
-            const plugin = this._plugins[i];
-            if (plugin.getContainerElement) {
-                const container = plugin.getContainerElement();
-                if (container !== document.body) {
-                    if (!captured[container.id]) {
-                        captured[container.id] = true;
-                        html2canvas(container).then(function (canvas) {
-                            document.body.appendChild(canvas);
-                        });
-                    }
-                }
-            }
-        }
-
         this.scene._renderer.renderSnapshot();
 
         const imageDataURI = this.scene._renderer.readSnapshot(params);
 
         if (resize) {
+            canvas.style.width = saveCssWidth;
+            canvas.style.height = saveCssHeight;
             canvas.width = saveWidth;
             canvas.height = saveHeight;
 

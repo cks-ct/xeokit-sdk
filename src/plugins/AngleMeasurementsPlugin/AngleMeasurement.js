@@ -81,9 +81,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
         this._cornerDot = new Dot3D(scene, cfg.corner, this._container, {
@@ -92,9 +92,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
         this._targetDot = new Dot3D(scene, cfg.target, this._container, {
@@ -103,9 +103,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -116,9 +116,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
         this._targetWire = new Wire(this._container, {
@@ -128,9 +128,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -142,9 +142,9 @@ class AngleMeasurement extends Component {
             onMouseOver,
             onMouseLeave,
             onMouseWheel,
-            onMouseDown,
-            onMouseUp,
-            onMouseMove,
+            // onMouseDown,
+            // onMouseUp,
+            // onMouseMove,
             onContextMenu
         });
 
@@ -334,14 +334,11 @@ class AngleMeasurement extends Component {
                 (targetVec[0] !== 0 || targetVec[1] !== 0 || targetVec[2] !== 0);
 
             if (validVecs) {
-
-                const tilde = this._approximate ? " ~ " : " = ";
-
                 math.normalizeVec3(originVec);
                 math.normalizeVec3(targetVec);
                 const angle = Math.abs(math.angleVec3(originVec, targetVec));
                 this._angle = angle / math.DEGTORAD;
-                this._angleLabel.setText(tilde + this._angle.toFixed(2) + "°");
+                this._angleLabel.setText(" " + this._angle.toFixed(2) + "°");
             } else {
                 this._angleLabel.setText("");
             }

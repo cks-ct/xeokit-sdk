@@ -77,6 +77,9 @@ class Annotation extends Marker {
         this._visibilityDirty = true;
         this._labelPosition = 24;
 
+        this._labelXOffset = cfg.labelXOffset ?? 20;
+        this._labelYOffset = cfg.labelYOffset ?? -17;
+
         this._buildHTML();
 
         this._onTick = this.scene.on("tick", () => {

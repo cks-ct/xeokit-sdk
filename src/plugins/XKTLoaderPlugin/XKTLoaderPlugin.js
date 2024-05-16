@@ -945,12 +945,15 @@ class XKTLoaderPlugin extends Plugin {
             // this._createDefaultMetaModelIfNeeded(sceneModel, params, options);
             sceneModel.finalize();
             metaModel.finalize();
-            this.viewer.scene.canvas.spinner.processes--;
+            if (this.viewer.scene.canvas) {
+                this.viewer.scene.canvas.spinner.processes--;
+            }
             sceneModel.once("destroyed", () => {
                 this.viewer.metaScene.destroyMetaModel(metaModel.id);
             });
             this.scheduleTask(() => {
                 if (sceneModel.destroyed) {
+                    sceneModel.fire("destroyed", sceneModel.id);
                     return;
                 }
                 sceneModel.scene.fire("modelLoaded", sceneModel.id); // FIXME: Assumes listeners know order of these two events

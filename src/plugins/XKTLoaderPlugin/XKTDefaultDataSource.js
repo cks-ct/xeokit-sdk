@@ -6,7 +6,7 @@ import {utils} from "../../viewer/scene/utils.js";
 class XKTDefaultDataSource {
 
     constructor(cfg = {}) {
-        this.cacheBuster = (cfg.cacheBuster !== false);
+        this.cacheBuster = false; // (cfg.cacheBuster !== false);
     }
 
     _cacheBusterURL(url) {

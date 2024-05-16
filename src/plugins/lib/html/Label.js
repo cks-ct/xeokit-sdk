@@ -13,7 +13,9 @@ class Label {
         this._culled = false;
 
         this._label = document.createElement('div');
-        this._label.className += this._label.className ? ' viewer-ruler-label' : 'viewer-ruler-label';
+
+        var className = 'viewer-ruler-label' + (cfg.className ? (' ' + cfg.className) : '');
+        this._label.className += this._label.className ? (' ' + className) : className;
         this._timeout = null;
 
         var label = this._label;
@@ -47,15 +49,19 @@ class Label {
 
         if (cfg.onMouseOver) {
             label.addEventListener('mouseover', (event) => {
-                cfg.onMouseOver(event, this);
-                event.preventDefault();
+                if (this._visible) {
+                    cfg.onMouseOver(event, this);
+                    event.preventDefault();
+                }
             });
         }
 
         if (cfg.onMouseLeave) {
             label.addEventListener('mouseleave', (event) => {
-                cfg.onMouseLeave(event, this);
-                event.preventDefault();
+                if (this._visible) {
+                    cfg.onMouseLeave(event, this);
+                    event.preventDefault();
+                }
             });
         }
 
@@ -88,37 +94,43 @@ class Label {
         if (cfg.onContextMenu) {
             if(os.isIphoneSafari()){
                 label.addEventListener('touchstart', (event) => {
-                    event.preventDefault();
-                    if(this._timeout){
-                        clearTimeout(this._timeout);
-                        this._timeout = null;
+                    if (this._visible) {
+                        event.preventDefault();
+                        if (this._timeout) {
+                            clearTimeout(this._timeout);
+                            this._timeout = null;
+                        }
+                        this._timeout = setTimeout(() => {
+                            event.clientX = event.touches[0].clientX;
+                            event.clientY = event.touches[0].clientY;
+                            cfg.onContextMenu(event, this);
+                            clearTimeout(this._timeout);
+                            this._timeout = null;
+                        }, 500);
                     }
-                    this._timeout = setTimeout(() => {
-                        event.clientX = event.touches[0].clientX;
-                        event.clientY = event.touches[0].clientY;
-                        cfg.onContextMenu(event, this);
-                        clearTimeout(this._timeout);
-                        this._timeout = null;
-                    }, 500);
                 })
 
                 label.addEventListener('touchend', (event) => {
-                    event.preventDefault();
-                    //stops short touches from calling the timeout
-                    if(this._timeout) {
-                        clearTimeout(this._timeout);
-                        this._timeout = null;
+                    if (this._visible) {
+                        event.preventDefault();
+                        //stops short touches from calling the timeout
+                        if (this._timeout) {
+                            clearTimeout(this._timeout);
+                            this._timeout = null;
+                        }
                     }
                 } )
 
             }
             else {
                 label.addEventListener('contextmenu', (event) => {
-                    console.log(event);
-                    cfg.onContextMenu(event, this);
-                    event.preventDefault();
-                    event.stopPropagation();
-                    console.log("Label context menu")
+                    if (this._visible) {
+                        console.log(event);
+                        cfg.onContextMenu(event, this);
+                        event.preventDefault();
+                        event.stopPropagation();
+                        console.log("Label context menu")
+                    }
                 });
             }
             
@@ -212,7 +224,7 @@ class Label {
         }
     }
 
-    
+
 }
 
 export {Label};

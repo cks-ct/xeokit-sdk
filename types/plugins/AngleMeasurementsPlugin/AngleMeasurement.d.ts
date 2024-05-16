@@ -155,4 +155,24 @@ export declare class AngleMeasurement extends Component {
    * @type {Number}
    */
   get angle(): number;
+
+  /**
+   * Sets if the angle label is visible.
+   *
+   * @type {Boolean}
+   */
+  set labelsVisible(value: boolean);
+
+  /**
+   * Gets if the angle label is visible.
+   *
+   * @type {Boolean}
+   */
+  get labelsVisible(): boolean;
+
+  /**
+   * Sets if this DistanceMeasurement appears highlighted.
+   * @param highlighted
+   */
+  setHighlighted(highlighted: boolean): void;
 }

@@ -168,7 +168,7 @@ export declare class DistanceMeasurement extends Component {
    * @type {Boolean}
    */
   get lengthLabelVisible(): boolean;
-  
+
   /**
    * Sets if the axis-aligned wires between {@link DistanceMeasurement.origin} and {@link DistanceMeasurement.target} are visible.
    *
@@ -231,6 +231,80 @@ export declare class DistanceMeasurement extends Component {
    * @type {Boolean}
    */
   get labelsOnWires() : boolean;
+
+  /**
+   * Sets if the X-axis-aligned wire between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} is visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  set xAxisVisible(value: boolean);
+
+  /**
+   * Gets if the X-axis-aligned wires between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} are visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  get xAxisVisible(): boolean;
+
+  /**
+   * Sets if the Y-axis-aligned wire between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} is visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  set yAxisVisible(value: boolean);
+
+  /**
+   * Gets if the Y-axis-aligned wires between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} are visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  get yAxisVisible(): boolean;
+
+  /**
+   * Sets if the Z-axis-aligned wire between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} is visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  set zAxisVisible(value: boolean);
+
+  /**
+   * Gets if the Z-axis-aligned wires between {@link DistanceMeasurement#origin} and {@link DistanceMeasurement#target} are visible.
+   *
+   * Wires are only shown if enabled and visible.
+   *
+   * @type {Boolean}
+   */
+  get zAxisVisible(): boolean;
+
+  /**
+   * Sets if the labels are visible.
+   *
+   * @type {Boolean}
+   */
+  set labelsVisible(value: boolean);
+
+  /**
+   * Gets if the labels are visible.
+   *
+   * @type {Boolean}
+   */
+  get labelsVisible(): boolean;
+
+  /**
+   * Sets if this DistanceMeasurement appears highlighted.
+   * @param {Boolean} highlighted
+   */
+  setHighlighted(highlighted: boolean): void;
 
   /**
    * Sets the higlihted state on a measurement

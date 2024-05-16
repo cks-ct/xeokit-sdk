@@ -175,7 +175,7 @@ class MousePanRotateDollyHandler {
             const x = states.pointerCanvasPos[0];
             const y = states.pointerCanvasPos[1];
 
-            const panning = keyDown[scene.input.KEY_SHIFT] || configs.planView || (!configs.panRightClick && mouseDownMiddle) || (configs.panRightClick && mouseDownRight);
+            const panning = keyDown[scene.input.KEY_SHIFT] || configs.planView || (configs.panMiddleClick && mouseDownMiddle) || (configs.panRightClick && mouseDownRight);
 
             const xDelta = document.pointerLockElement ? e.movementX : (x - lastX);
             const yDelta = document.pointerLockElement ? e.movementY : (y - lastY);
